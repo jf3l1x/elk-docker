@@ -39,7 +39,7 @@ This command publishes the following ports, which are needed for proper operatio
 - 5601 (Kibana web interface).
 - 9200 (Elasticsearch)
 - 5000 (Logstash server, receives logs from logstash forwarders – see the [Forwarding logs](#forwarding-logs) section below).
- 
+
 The figure below shows how the pieces fit together.
 
 	-                                +--------------------------------------------+
@@ -76,7 +76,7 @@ If you're using [Docker Compose](https://docs.docker.com/compose/) (formerly kno
 
 You can then start the ELK container like this:
 
-	$ sudo docker-compose up elk 
+	$ sudo docker-compose up elk
 
 ### Creating a dummy log entry <a name="creating-dummy-log-entry"></a>
 
@@ -90,7 +90,7 @@ In another terminal window, find out the name of the container running ELK, whic
 
 Open a shell prompt in the container and type (replacing `<container-name>` with the name of the container, e.g. `elkdocker_elk_1` in the example above):
 
-	$ sudo docker exec -it <container-name> /bin/bash 
+	$ sudo docker exec -it <container-name> /bin/bash
 
 **Note** - If you're running a pre-1.4 version of Docker (before the `exec` command was introduced) then:
 
@@ -128,7 +128,7 @@ After a few seconds if you browse to *http://<your-host>:9200/_search?pretty* (e
 
 You can now browse to Kibana's web interface at *http://<your-host>:5601* (e.g. [http://localhost:5601](http://localhost:5601) for a local native instance of Docker).
 
-From the drop-down "Time-field name" field, select `@timestamp`, then click on "Create", and you're good to go. 
+From the drop-down "Time-field name" field, select `@timestamp`, then click on "Create", and you're good to go.
 
 ## Forwarding logs <a name="forwarding-logs"></a>
 
@@ -136,7 +136,7 @@ Forwarding logs from a host relies on a Logstash forwarder agent collecting logs
 
 Install [Logstash forwarder](https://github.com/elasticsearch/logstash-forwarder) on the host you want to collect and forward logs from (see the [References](#References) section below for links to detailed instructions).
 
-Here is a sample configuration file for Logstash forwarder, that forwards syslog and authentication logs, as well as [nginx](http://nginx.org/) logs. 
+Here is a sample configuration file for Logstash forwarder, that forwards syslog and authentication logs, as well as [nginx](http://nginx.org/) logs.
 
 	{
 	  "network": {
@@ -187,7 +187,7 @@ Then start the log-emitting container with the `--link` option:
 
 From the perspective of the log emitting container, the ELK container is now known as `elk`, which is the hostname to be used in the `logstash-forwarder` configuration file.
 
-With Compose here's what example entries for a (locally built log-generating) nginx container and an ELK container might look like in the `docker-compose.yml` file. 
+With Compose here's what example entries for a (locally built log-generating) nginx container and an ELK container might look like in the `docker-compose.yml` file.
 
 	nginx:
 	  build: nginx
@@ -195,14 +195,14 @@ With Compose here's what example entries for a (locally built log-generating) ng
 	    - "80:80"
 	  links:
 	    - elk
-	
+
 	elk:
 	  image: sebp/elk
 	  ports:
 	    - "5601:5601"
 	    - "9200:9200"
 	    - "5000:5000"
-  
+
 
 ## Building the image <a name="building-image"></a>
 

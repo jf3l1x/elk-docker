@@ -59,6 +59,10 @@ ADD ./logstash-forwarder.key /etc/pki/tls/private/logstash-forwarder.key
 
 # filters
 ADD ./01-lumberjack-input.conf /etc/logstash/conf.d/01-lumberjack-input.conf
+ADD ./collect-sys.conf /etc/logstash/conf.d/collect-sys.conf
+ADD ./collect-elastic.conf /etc/logstash/conf.d/collect-elastic.conf
+ADD ./collect-logstash.conf /etc/logstash/conf.d/collect-logstash.conf
+ADD ./collect-kibana.conf /etc/logstash/conf.d/collect-kibana.conf
 ADD ./10-syslog.conf /etc/logstash/conf.d/10-syslog.conf
 ADD ./11-nginx.conf /etc/logstash/conf.d/11-nginx.conf
 ADD ./30-lumberjack-output.conf /etc/logstash/conf.d/30-lumberjack-output.conf
