@@ -35,6 +35,8 @@ RUN apt-get update -qq \
 
 ENV KIBANA_HOME /opt/kibana
 
+RUN mkdir /var/log/kibana
+
 RUN mkdir ${KIBANA_HOME} \
 	&& curl -O https://download.elasticsearch.org/kibana/kibana/kibana-4.0.1-linux-x64.tar.gz \
 	&& tar xzf kibana-4.0.1-linux-x64.tar.gz -C ${KIBANA_HOME} --strip-components=1 \
