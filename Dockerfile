@@ -19,6 +19,8 @@ ENV REFRESHED_AT 2015-02-22
 
 RUN apt-get update -qq && apt-get install -qqy curl
 
+
+
 RUN curl http://packages.elasticsearch.org/GPG-KEY-elasticsearch | apt-key add -
 RUN echo deb http://packages.elasticsearch.org/elasticsearch/1.5/debian stable main > /etc/apt/sources.list.d/elasticsearch.list
 
@@ -29,6 +31,8 @@ RUN apt-get update -qq \
 		elasticsearch \
 		logstash=1.4.2-1-2c0f5a1 \
 		openjdk-7-jdk
+
+RUN apt-get install -qqy logstash-contrib
 
 
 ### install kibana
@@ -65,6 +69,7 @@ ADD ./collect-sys.conf /etc/logstash/conf.d/collect-sys.conf
 ADD ./collect-elastic.conf /etc/logstash/conf.d/collect-elastic.conf
 ADD ./collect-logstash.conf /etc/logstash/conf.d/collect-logstash.conf
 ADD ./collect-kibana.conf /etc/logstash/conf.d/collect-kibana.conf
+ADD ./collect-windows.conf /etc/logstash/conf.d/collect-windows.conf
 ADD ./10-syslog.conf /etc/logstash/conf.d/10-syslog.conf
 ADD ./11-nginx.conf /etc/logstash/conf.d/11-nginx.conf
 ADD ./30-lumberjack-output.conf /etc/logstash/conf.d/30-lumberjack-output.conf
@@ -81,6 +86,6 @@ RUN chown logstash:logstash /opt/logstash/patterns/*
 ADD ./start.sh /usr/local/bin/start.sh
 RUN chmod +x /usr/local/bin/start.sh
 
-EXPOSE 5601 9200 5000
+EXPOSE 5601 9200 5000 5001
 
 CMD [ "/usr/local/bin/start.sh" ]
